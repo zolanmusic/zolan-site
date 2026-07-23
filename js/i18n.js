@@ -46,6 +46,8 @@
       "conecta.eyebrow": "Conecta",
       "conecta.heading": "Sígueme el rastro.",
       "conecta.contact": "Prensa / Contacto",
+      "next.eyebrow": "Próximo lanzamiento",
+      "next.cta": "Pre-guardar ahora",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. Todos los derechos reservados."
     },
 
@@ -77,6 +79,8 @@
       "conecta.eyebrow": "Connect",
       "conecta.heading": "Follow the trail.",
       "conecta.contact": "Press / Contact",
+      "next.eyebrow": "Next release",
+      "next.cta": "Pre-save now",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. All rights reserved."
     },
 
@@ -108,6 +112,8 @@
       "conecta.eyebrow": "Контакти",
       "conecta.heading": "Слідкуй за треком.",
       "conecta.contact": "Преса / Контакт",
+      "next.eyebrow": "Наступний реліз",
+      "next.cta": "Попередньо зберегти",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. Усі права захищені."
     },
 
@@ -139,6 +145,8 @@
       "conecta.eyebrow": "Контакты",
       "conecta.heading": "Следи за треком.",
       "conecta.contact": "Пресса / Контакт",
+      "next.eyebrow": "Следующий релиз",
+      "next.cta": "Предзаказать сейчас",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. Все права защищены."
     },
 
@@ -170,6 +178,8 @@
       "conecta.eyebrow": "Kontakt",
       "conecta.heading": "Śledź ślad.",
       "conecta.contact": "Prasa / Kontakt",
+      "next.eyebrow": "Nadchodzące wydanie",
+      "next.cta": "Zapisz zawczasu",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. Wszelkie prawa zastrzeżone."
     }
   };
