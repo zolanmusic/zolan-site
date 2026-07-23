@@ -69,15 +69,37 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* 5. Canvas de frecuencia — visualizador ambiental en el hero         */
-  /*    (patrón generado, no analiza audio real; es puro efecto visual) */
+  /* 5. Canvas del hero — campo de partículas acercándose (efecto "warp") */
+  /*    Pura decoración generativa, sin dependencias externas.           */
   /* ------------------------------------------------------------------ */
   var canvas = document.getElementById("freqCanvas");
 
   if (canvas && !prefersReducedMotion) {
     var ctx = canvas.getContext("2d");
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var width, height, bars, t = 0;
+    var width, height, particles;
+
+    // Paleta cálida — coincide con los tokens de color de style.css
+    var PALETTE = [
+      [209, 81, 44],   // --rust
+      [242, 201, 74],  // --gold
+      [156, 184, 79],  // --sage
+      [229, 154, 47]   // --amber
+    ];
+
+    function makeParticle(freshStart) {
+      var angle = Math.random() * Math.PI * 2;
+      var radius = Math.random(); // distribución radial desde el centro
+      return {
+        x: Math.cos(angle) * radius,
+        y: Math.sin(angle) * radius * 0.6, // achatado, se siente más "cinematográfico"
+        z: freshStart ? Math.random() : 0.05 + Math.random() * 0.95,
+        speed: 0.12 + Math.random() * 0.22,
+        color: PALETTE[(Math.random() * PALETTE.length) | 0],
+        prevProjX: null,
+        prevProjY: null
+      };
+    }
 
     function resize() {
       width = canvas.offsetWidth;
@@ -86,60 +108,70 @@
       canvas.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // número de barras según ancho disponible
-      var count = Math.max(28, Math.floor(width / 26));
-      bars = new Array(count).fill(0).map(function (_, i) {
-        return {
-          seed: Math.random() * Math.PI * 2,
-          speed: 0.4 + Math.random() * 0.6,
-          amp: 0.35 + Math.random() * 0.65
-        };
-      });
+      var count = Math.max(70, Math.min(160, Math.floor((width * height) / 9000)));
+      particles = new Array(count).fill(0).map(function () { return makeParticle(true); });
+    }
+
+    function project(p, cx, cy, focal) {
+      var scale = focal / (p.z * focal + focal);
+      return { x: cx + p.x * cx * scale * 2.2, y: cy + p.y * cy * scale * 2.2, scale: scale };
     }
 
     function draw() {
-      t += 0.016;
       ctx.clearRect(0, 0, width, height);
 
       var cx = width / 2;
-      var baseline = height * 0.72;
-      var gap = width / bars.length;
+      var cy = height * 0.46;
+      var focal = Math.min(width, height) * 0.5;
 
-      bars.forEach(function (bar, i) {
-        var x = i * gap + gap / 2;
-        // distancia al centro para dar forma de "orbe" -> más alto al centro
-        var distFromCenter = Math.abs(x - cx) / cx; // 0 al centro, 1 en bordes
-        var envelope = Math.pow(1 - distFromCenter, 1.4);
-        var wave = (Math.sin(t * bar.speed + bar.seed) + 1) / 2; // 0..1
-        var h = envelope * bar.amp * height * 0.5 * wave + envelope * 10;
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
 
-        var grad = ctx.createLinearGradient(0, baseline, 0, baseline - h);
-        grad.addColorStop(0, "rgba(139, 92, 246, 0.05)");
-        grad.addColorStop(0.5, "rgba(45, 226, 230, 0.55)");
-        grad.addColorStop(1, "rgba(255, 46, 146, 0.85)");
+        var before = project(p, cx, cy, focal);
+        if (p.prevProjX === null) { p.prevProjX = before.x; p.prevProjY = before.y; }
 
-        ctx.fillStyle = grad;
-        var barWidth = Math.max(2, gap * 0.35);
-        roundedBar(ctx, x - barWidth / 2, baseline - h, barWidth, h, barWidth / 2);
-      });
+        // se acerca al espectador
+        p.z -= p.speed * 0.016;
+        if (p.z <= 0.02) {
+          particles[i] = makeParticle(false);
+          particles[i].z = 1;
+          continue;
+        }
+
+        var after = project(p, cx, cy, focal);
+        var closeness = 1 - Math.min(p.z, 1); // 0 = lejos, 1 = muy cerca
+        var alpha = 0.08 + closeness * 0.7;
+        var size = 0.6 + closeness * closeness * 3.4;
+        var c = p.color;
+
+        // estela — sensación de movimiento hacia adelante
+        ctx.strokeStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (alpha * 0.5) + ")";
+        ctx.lineWidth = Math.max(0.6, size * 0.5);
+        ctx.beginPath();
+        ctx.moveTo(p.prevProjX, p.prevProjY);
+        ctx.lineTo(after.x, after.y);
+        ctx.stroke();
+
+        // núcleo brillante de la partícula
+        var glow = ctx.createRadialGradient(after.x, after.y, 0, after.x, after.y, size * 2.4);
+        glow.addColorStop(0, "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + alpha + ")");
+        glow.addColorStop(1, "rgba(" + c[0] + "," + c[1] + "," + c[2] + ",0)");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(after.x, after.y, size * 2.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        p.prevProjX = after.x;
+        p.prevProjY = after.y;
+      }
 
       requestAnimationFrame(draw);
     }
 
-    function roundedBar(ctx, x, y, w, h, r) {
-      if (h < r * 2) r = h / 2;
-      ctx.beginPath();
-      ctx.moveTo(x, y + h);
-      ctx.lineTo(x, y + r);
-      ctx.arcTo(x, y, x + r, y, r);
-      ctx.lineTo(x + w - r, y);
-      ctx.arcTo(x + w, y, x + w, y + r, r);
-      ctx.lineTo(x + w, y + h);
-      ctx.closePath();
-      ctx.fill();
-    }
-
-    window.addEventListener("resize", resize, { passive: true });
+    window.addEventListener("resize", function () {
+      resize();
+      particles.forEach(function (p) { p.prevProjX = null; p.prevProjY = null; });
+    }, { passive: true });
     resize();
     requestAnimationFrame(draw);
   }
