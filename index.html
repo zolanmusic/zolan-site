@@ -32,13 +32,21 @@
       <a href="#top" class="nav__logo" aria-label="ZØLAN — inicio">ZØLAN<span class="nav__logo-dot">.</span></a>
 
       <nav class="nav__links" aria-label="Navegación principal">
-        <a href="#sonido"><span>01</span>Sonido</a>
-        <a href="#lanzamientos"><span>02</span>Lanzamientos</a>
-        <a href="#visual"><span>03</span>Visual</a>
-        <a href="#conecta"><span>04</span>Conecta</a>
+        <a href="#sonido"><span>01</span><span data-i18n="nav.sonido">Sonido</span></a>
+        <a href="#lanzamientos"><span>02</span><span data-i18n="nav.lanzamientos">Lanzamientos</span></a>
+        <a href="#visual"><span>03</span><span data-i18n="nav.visual">Visual</span></a>
+        <a href="#conecta"><span>04</span><span data-i18n="nav.conecta">Conecta</span></a>
       </nav>
 
-      <a class="nav__cta" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">Escuchar</a>
+      <div class="lang-switch" id="langSwitch" aria-label="Selector de idioma">
+        <button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="uk">UK</button>
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="pl">PL</button>
+      </div>
+
+      <a class="nav__cta" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener" data-i18n="nav.cta">Escuchar</a>
 
       <button class="nav__burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
@@ -49,11 +57,18 @@
   <!-- ============ MENÚ MÓVIL FULLSCREEN ============ -->
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <nav class="mobile-menu__links" aria-label="Navegación móvil">
-      <a href="#sonido" data-index="01">Sonido</a>
-      <a href="#lanzamientos" data-index="02">Lanzamientos</a>
-      <a href="#visual" data-index="03">Visual</a>
-      <a href="#conecta" data-index="04">Conecta</a>
+      <a href="#sonido" data-index="01" data-i18n="nav.sonido">Sonido</a>
+      <a href="#lanzamientos" data-index="02" data-i18n="nav.lanzamientos">Lanzamientos</a>
+      <a href="#visual" data-index="03" data-i18n="nav.visual">Visual</a>
+      <a href="#conecta" data-index="04" data-i18n="nav.conecta">Conecta</a>
     </nav>
+    <div class="mobile-menu__lang" id="langSwitchMobile" aria-label="Selector de idioma">
+      <button type="button" data-lang="es">ES</button>
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="uk">UK</button>
+      <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="pl">PL</button>
+    </div>
     <div class="mobile-menu__socials">
       <a href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">Spotify</a>
       <a href="https://www.instagram.com/iamzolan" target="_blank" rel="noopener">Instagram</a>
@@ -74,53 +89,53 @@
         <h1 class="hero__title reveal">
           <span class="hero__title-line">ZØLAN</span>
         </h1>
-        <p class="hero__subtitle reveal">
+        <p class="hero__subtitle reveal" data-i18n="hero.subtitle">
           ZØLAN construye atmósferas — capas profundas, melodías que respiran y groove progresivo pensado para escucharse con los ojos cerrados.
         </p>
         <div class="hero__actions reveal">
           <a class="btn btn--primary" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">
-            <span>Escuchar en Spotify</span>
+            <span data-i18n="hero.cta_listen">Escuchar en Spotify</span>
           </a>
-          <a class="btn btn--ghost" href="#lanzamientos">Ver lanzamientos</a>
+          <a class="btn btn--ghost" href="#lanzamientos" data-i18n="hero.cta_releases">Ver lanzamientos</a>
         </div>
       </div>
 
       <a href="#sonido" class="hero__scroll" aria-label="Bajar a la siguiente sección">
         <span class="hero__scroll-line"></span>
-        <span>scroll</span>
+        <span data-i18n="hero.scroll">scroll</span>
       </a>
     </section>
 
     <!-- ============ SONIDO / ABOUT ============ -->
     <section class="sonido" id="sonido">
       <div class="section-head reveal">
-        <p class="eyebrow">El estudio</p>
-        <h2>Tres texturas, un mismo estado de ánimo.</h2>
+        <p class="eyebrow" data-i18n="sonido.eyebrow">El estudio</p>
+        <h2 data-i18n="sonido.heading">Tres texturas, un mismo estado de ánimo.</h2>
       </div>
 
       <div class="sonido__grid">
         <article class="texture reveal">
           <h3>Progressive</h3>
-          <p>Construcción lenta y deliberada. Capas que se acumulan hasta convertirse en tensión, nunca en ruido.</p>
+          <p data-i18n="texture.progressive">Construcción lenta y deliberada. Capas que se acumulan hasta convertirse en tensión, nunca en ruido.</p>
         </article>
         <article class="texture reveal">
           <h3>Melodic</h3>
-          <p>El centro emocional. Líneas melódicas que llevan la narrativa del track de principio a fin.</p>
+          <p data-i18n="texture.melodic">El centro emocional. Líneas melódicas que llevan la narrativa del track de principio a fin.</p>
         </article>
         <article class="texture reveal">
           <h3>Deep</h3>
-          <p>Graves cálidos y espacio de sobra. La fusión que le da profundidad y calma a cada lanzamiento.</p>
+          <p data-i18n="texture.deep">Graves cálidos y espacio de sobra. La fusión que le da profundidad y calma a cada lanzamiento.</p>
         </article>
       </div>
 
       <div class="bio reveal">
-        <p>
+        <p data-i18n-html="bio.p1">
           ZØLAN empezó a producir desde muy joven, de forma autodidacta, mezclando curiosidad técnica con
           referencias del house electrónico global. Tras una pausa dedicada a sus estudios, volvió con un
           sonido más definido: atmósferas envolventes que combinan la construcción del progressive house,
           la emoción del melodic house y la profundidad del deep house.
         </p>
-        <p>
+        <p data-i18n-html="bio.p2">
           Su catálogo incluye colaboraciones como <em>“Save Love”</em>, junto a la cantante chilena
           Maca Koller, y remixes propios como <em>“No Vas Sola”</em>. Hoy el foco está completo en
           estudio: diseño de sonido, producción y una identidad sonora en constante evolución.
@@ -131,9 +146,9 @@
     <!-- ============ LANZAMIENTOS ============ -->
     <section class="releases" id="lanzamientos">
       <div class="section-head reveal">
-        <p class="eyebrow">Discografía</p>
-        <h2>Lanzamientos.</h2>
-        <a class="section-head__link" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">
+        <p class="eyebrow" data-i18n="releases.eyebrow">Discografía</p>
+        <h2 data-i18n="releases.heading">Lanzamientos.</h2>
+        <a class="section-head__link" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener" data-i18n="releases.link">
           Ver catálogo completo en Spotify →
         </a>
       </div>
@@ -214,10 +229,10 @@
 
       </div>
 
-      <p class="releases__hint reveal">Desliza para ver todo el catálogo →</p>
+      <p class="releases__hint reveal" data-i18n="releases.hint">Desliza para ver todo el catálogo →</p>
 
       <div class="releases__smartlink reveal">
-        <a class="btn btn--ghost" href="https://ffm.to/echoes-in-the-silence" target="_blank" rel="noopener">
+        <a class="btn btn--ghost" href="https://ffm.to/echoes-in-the-silence" target="_blank" rel="noopener" data-i18n="releases.smartlink">
           Escuchar "Echoes in the Silence" en todas las plataformas
         </a>
       </div>
@@ -226,9 +241,9 @@
     <!-- ============ VISUAL / GALERÍA ============ -->
     <section class="visual" id="visual">
       <div class="section-head reveal">
-        <p class="eyebrow">Identidad</p>
-        <h2>Visual.</h2>
-        <p class="section-head__note">Espacio reservado para fotografía de estudio y artwork. Reemplaza estos bloques por tus propias imágenes — instrucciones en <code>assets/images/README.md</code>.</p>
+        <p class="eyebrow" data-i18n="visual.eyebrow">Identidad</p>
+        <h2 data-i18n="visual.heading">Visual.</h2>
+        <p class="section-head__note" data-i18n="visual.note">Espacio reservado para fotografía de estudio y artwork. Reemplaza estos bloques por tus propias imágenes.</p>
       </div>
 
       <div class="gallery reveal">
@@ -242,8 +257,8 @@
     <!-- ============ CONECTA ============ -->
     <section class="conecta" id="conecta">
       <div class="conecta__inner">
-        <p class="eyebrow reveal">Conecta</p>
-        <h2 class="conecta__title reveal">Sígueme el rastro.</h2>
+        <p class="eyebrow reveal" data-i18n="conecta.eyebrow">Conecta</p>
+        <h2 class="conecta__title reveal" data-i18n="conecta.heading">Sígueme el rastro.</h2>
 
         <div class="conecta__grid reveal">
           <a class="conecta__card" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">
@@ -259,7 +274,7 @@
             <span class="conecta__card-arrow">↗</span>
           </a>
           <a class="conecta__card" href="mailto:contacto@zolanmusic.com">
-            <span class="conecta__card-label">Prensa / Contacto</span>
+            <span class="conecta__card-label" data-i18n="conecta.contact">Prensa / Contacto</span>
             <span class="conecta__card-arrow">↗</span>
           </a>
         </div>
@@ -272,10 +287,11 @@
   <footer class="footer">
     <div class="footer__inner">
       <span class="footer__logo">ZØLAN<span>.</span></span>
-      <p>Progressive · Melodic · Deep House — © <span id="year"></span> ZØLAN. Todos los derechos reservados.</p>
+      <p><span data-i18n-html="footer.text">Progressive · Melodic · Deep House — © <span id="year"></span> ZØLAN. Todos los derechos reservados.</span></p>
     </div>
   </footer>
 
+  <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
