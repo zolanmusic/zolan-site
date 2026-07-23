@@ -667,6 +667,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   border: 1px dashed var(--line);
   position: relative;
 }
+
 .gallery__item::after {
   content: attr(data-placeholder);
   position: absolute;
