@@ -680,7 +680,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
-.gallery__item--tall { grid-row: span 2; aspect-ratio: 3 / 5; }
+.gallery__item--tall { grid-row: span 2; height: 100%; }
 .gallery__item--wide { grid-column: span 2; aspect-ratio: 16 / 9; }
 
 @media (min-width: 800px) {
