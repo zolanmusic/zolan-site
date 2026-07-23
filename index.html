@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ZØLAN — Sonido envolvente</title>
+  <meta name="description" content="ZØLAN. Progressive house, melodic house y deep house en fusión. Producción de sonidos envolventes. Sin escenarios, solo estudio." />
+  <meta name="theme-color" content="#05050a" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ZØLAN — Sonido envolvente" />
+  <meta property="og:description" content="Progressive · Melodic · Deep House en fusión. El estudio de ZØLAN." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/assets/images/og-cover.jpg" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2322e5ff%22>Ø</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============ RUIDO / GRANO DE FONDO ============ -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__logo" aria-label="ZØLAN — inicio">ZØLAN<span class="nav__logo-dot">.</span></a>
+
+      <nav class="nav__links" aria-label="Navegación principal">
+        <a href="#sonido"><span>01</span>Sonido</a>
+        <a href="#lanzamientos"><span>02</span>Lanzamientos</a>
+        <a href="#visual"><span>03</span>Visual</a>
+        <a href="#conecta"><span>04</span>Conecta</a>
+      </nav>
+
+      <a class="nav__cta" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">Escuchar</a>
+
+      <button class="nav__burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ MENÚ MÓVIL FULLSCREEN ============ -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav class="mobile-menu__links" aria-label="Navegación móvil">
+      <a href="#sonido" data-index="01">Sonido</a>
+      <a href="#lanzamientos" data-index="02">Lanzamientos</a>
+      <a href="#visual" data-index="03">Visual</a>
+      <a href="#conecta" data-index="04">Conecta</a>
+    </nav>
+    <div class="mobile-menu__socials">
+      <a href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">Spotify</a>
+      <a href="https://www.instagram.com/iamzolan" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/zolanmusic_" target="_blank" rel="noopener">X</a>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <canvas id="freqCanvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+      <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <p class="eyebrow reveal">Progressive · Melodic · Deep House</p>
+        <h1 class="hero__title reveal">
+          <span class="hero__title-line">SONIDO</span>
+          <span class="hero__title-line hero__title-line--outline">ENVOLVENTE</span>
+        </h1>
+        <p class="hero__subtitle reveal">
+          ZØLAN construye atmósferas — capas profundas, melodías que respiran y groove progresivo pensado para escucharse con los ojos cerrados.
+        </p>
+        <div class="hero__actions reveal">
+          <a class="btn btn--primary" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">
+            <span>Escuchar en Spotify</span>
+          </a>
+          <a class="btn btn--ghost" href="#lanzamientos">Ver lanzamientos</a>
+        </div>
+      </div>
+
+      <a href="#sonido" class="hero__scroll" aria-label="Bajar a la siguiente sección">
+        <span class="hero__scroll-line"></span>
+        <span>scroll</span>
+      </a>
+    </section>
+
+    <!-- ============ SONIDO / ABOUT ============ -->
+    <section class="sonido" id="sonido">
+      <div class="section-head reveal">
+        <p class="eyebrow">El estudio</p>
+        <h2>Tres texturas, un mismo estado de ánimo.</h2>
+      </div>
+
+      <div class="sonido__grid">
+        <article class="texture reveal">
+          <h3>Progressive</h3>
+          <p>Construcción lenta y deliberada. Capas que se acumulan hasta convertirse en tensión, nunca en ruido.</p>
+        </article>
+        <article class="texture reveal">
+          <h3>Melodic</h3>
+          <p>El centro emocional. Líneas melódicas que llevan la narrativa del track de principio a fin.</p>
+        </article>
+        <article class="texture reveal">
+          <h3>Deep</h3>
+          <p>Graves cálidos y espacio de sobra. La fusión que le da profundidad y calma a cada lanzamiento.</p>
+        </article>
+      </div>
+
+      <div class="bio reveal">
+        <p>
+          ZØLAN empezó a producir desde muy joven, de forma autodidacta, mezclando curiosidad técnica con
+          referencias del house electrónico global. Tras una pausa dedicada a sus estudios, volvió con un
+          sonido más definido: atmósferas envolventes que combinan la construcción del progressive house,
+          la emoción del melodic house y la profundidad del deep house.
+        </p>
+        <p>
+          Su catálogo incluye colaboraciones como <em>“Save Love”</em>, junto a la cantante chilena
+          Maca Koller, y remixes propios como <em>“No Vas Sola”</em>. Hoy el foco está completo en
+          estudio: diseño de sonido, producción y una identidad sonora en constante evolución.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ LANZAMIENTOS ============ -->
+    <section class="releases" id="lanzamientos">
+      <div class="section-head reveal">
+        <p class="eyebrow">Discografía</p>
+        <h2>Lanzamientos.</h2>
+        <a class="section-head__link" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">
+          Ver catálogo completo en Spotify →
+        </a>
+      </div>
+
+      <div class="releases__track" id="releasesTrack">
+
+        <a class="release-card reveal" href="https://open.spotify.com/album/02mEhww82qhdnkAECFI1zW" target="_blank" rel="noopener">
+          <div class="release-card__art release-card__art--1" data-cover="1"></div>
+          <div class="release-card__meta">
+            <span class="release-card__year">2025</span>
+            <h3>Echoes in the Silence</h3>
+            <span class="release-card__type">Single</span>
+          </div>
+        </a>
+
+        <a class="release-card reveal" href="https://open.spotify.com/album/0AJqaJnwcAWvpJgiPWyy9r" target="_blank" rel="noopener">
+          <div class="release-card__art release-card__art--2" data-cover="2"></div>
+          <div class="release-card__meta">
+            <span class="release-card__year">2024</span>
+            <h3>I Believe It</h3>
+            <span class="release-card__type">Single</span>
+          </div>
+        </a>
+
+        <a class="release-card reveal" href="https://open.spotify.com/album/4GWwKZ44XecKRsallPPeTv" target="_blank" rel="noopener">
+          <div class="release-card__art release-card__art--3" data-cover="3"></div>
+          <div class="release-card__meta">
+            <span class="release-card__year">2024</span>
+            <h3>Ganda</h3>
+            <span class="release-card__type">Single</span>
+          </div>
+        </a>
+
+        <a class="release-card reveal" href="https://open.spotify.com/album/6GuW9oVdt1gHZdPEuTeU7y" target="_blank" rel="noopener">
+          <div class="release-card__art release-card__art--4" data-cover="4"></div>
+          <div class="release-card__meta">
+            <span class="release-card__year">2024</span>
+            <h3>No Vas Sola <small>(ZØLAN Remix)</small></h3>
+            <span class="release-card__type">Remix</span>
+          </div>
+        </a>
+
+        <a class="release-card reveal" href="https://open.spotify.com/album/1eUFNoSLNwJqo8Zgmk3Yng" target="_blank" rel="noopener">
+          <div class="release-card__art release-card__art--5" data-cover="5"></div>
+          <div class="release-card__meta">
+            <span class="release-card__year">2022</span>
+            <h3>Wide Awake</h3>
+            <span class="release-card__type">Single</span>
+          </div>
+        </a>
+
+        <a class="release-card reveal" href="https://open.spotify.com/album/118d15KwmroFpgCgHlXILE" target="_blank" rel="noopener">
+          <div class="release-card__art release-card__art--6" data-cover="6"></div>
+          <div class="release-card__meta">
+            <span class="release-card__year">2022</span>
+            <h3>Talk to Me <small>(Tonight)</small></h3>
+            <span class="release-card__type">Single</span>
+          </div>
+        </a>
+
+        <a class="release-card reveal" href="https://open.spotify.com/album/0RTgqJ0gZiXooHqFSf5CRQ" target="_blank" rel="noopener">
+          <div class="release-card__art release-card__art--1" data-cover="7"></div>
+          <div class="release-card__meta">
+            <span class="release-card__year">2022</span>
+            <h3>Glowing Infrared</h3>
+            <span class="release-card__type">Single</span>
+          </div>
+        </a>
+
+        <a class="release-card reveal" href="https://open.spotify.com/album/056j7YsA6Gsdv5MzwKv5jv" target="_blank" rel="noopener">
+          <div class="release-card__art release-card__art--2" data-cover="8"></div>
+          <div class="release-card__meta">
+            <span class="release-card__year">2021</span>
+            <h3>Save Love <small>(VIP Mix)</small></h3>
+            <span class="release-card__type">Single</span>
+          </div>
+        </a>
+
+      </div>
+
+      <p class="releases__hint reveal">Desliza para ver todo el catálogo →</p>
+    </section>
+
+    <!-- ============ VISUAL / GALERÍA ============ -->
+    <section class="visual" id="visual">
+      <div class="section-head reveal">
+        <p class="eyebrow">Identidad</p>
+        <h2>Visual.</h2>
+        <p class="section-head__note">Espacio reservado para fotografía de estudio y artwork. Reemplaza estos bloques por tus propias imágenes — instrucciones en <code>assets/images/README.md</code>.</p>
+      </div>
+
+      <div class="gallery reveal">
+        <div class="gallery__item gallery__item--tall" data-placeholder="foto-01"></div>
+        <div class="gallery__item" data-placeholder="foto-02"></div>
+        <div class="gallery__item" data-placeholder="foto-03"></div>
+        <div class="gallery__item gallery__item--wide" data-placeholder="foto-04"></div>
+      </div>
+    </section>
+
+    <!-- ============ CONECTA ============ -->
+    <section class="conecta" id="conecta">
+      <div class="conecta__inner">
+        <p class="eyebrow reveal">Conecta</p>
+        <h2 class="conecta__title reveal">Sígueme el rastro.</h2>
+
+        <div class="conecta__grid reveal">
+          <a class="conecta__card" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener">
+            <span class="conecta__card-label">Spotify</span>
+            <span class="conecta__card-arrow">↗</span>
+          </a>
+          <a class="conecta__card" href="https://www.instagram.com/iamzolan" target="_blank" rel="noopener">
+            <span class="conecta__card-label">Instagram</span>
+            <span class="conecta__card-arrow">↗</span>
+          </a>
+          <a class="conecta__card" href="https://twitter.com/zolanmusic_" target="_blank" rel="noopener">
+            <span class="conecta__card-label">X / Twitter</span>
+            <span class="conecta__card-arrow">↗</span>
+          </a>
+          <a class="conecta__card" href="mailto:contacto@zolanmusic.com">
+            <span class="conecta__card-label">Prensa / Contacto</span>
+            <span class="conecta__card-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__logo">ZØLAN<span>.</span></span>
+      <p>Progressive · Melodic · Deep House — © <span id="year"></span> ZØLAN. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
