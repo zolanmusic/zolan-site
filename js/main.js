@@ -220,4 +220,209 @@
     setInterval(updateCountdown, 1000);
   }
 
+  /* ------------------------------------------------------------------ */
+  /* 7. Título ZØLAN de partículas                                       */
+  /*    Ciclo: FORMAR -> RESPIRAR -> COMPRIMIR -> EXPLOTAR -> repetir.   */
+  /*    Las posiciones objetivo se muestrean pintando el texto en un     */
+  /*    canvas oculto y leyendo qué píxeles quedan encendidos.           */
+  /* ------------------------------------------------------------------ */
+  var titleCanvas = document.getElementById("titleCanvas");
+
+  if (titleCanvas && !prefersReducedMotion) {
+    var tctx = titleCanvas.getContext("2d");
+    var tdpr = Math.min(window.devicePixelRatio || 1, 2);
+    var TEXT = "ZØLAN";
+    var TW, TH, tParticles = [], tCenterX, tCenterY;
+
+    // paleta cálida del sitio, con pesos (más foam/gold que el resto)
+    var T_PALETTE = [
+      "#f6f0e4", "#f6f0e4", "#f6f0e4",
+      "#f2c94a", "#f2c94a",
+      "#e59a2f",
+      "#d1512c",
+      "#9cb84f"
+    ];
+
+    var tPhase = "form";
+    var tPhaseStart = 0;
+    var T_DUR = { form: 2400, hold: 2600, compress: 850, explode: 1100 };
+
+    function easeInCubic(x) { return x * x * x; }
+
+    function sampleTextTargets() {
+      var containerW = titleCanvas.parentElement.clientWidth || 320;
+      TW = Math.max(280, Math.floor(containerW));
+
+      // calcular tamaño de fuente que ocupe ~96% del ancho
+      var off = document.createElement("canvas");
+      var octx = off.getContext("2d");
+      octx.font = "900 100px Unbounded, sans-serif";
+      var measured = octx.measureText(TEXT).width || 350;
+      var fontSize = Math.floor(100 * (TW * 0.96) / measured);
+      TH = Math.ceil(fontSize * 1.22);
+
+      off.width = TW;
+      off.height = TH;
+      octx = off.getContext("2d");
+      octx.font = "900 " + fontSize + "px Unbounded, sans-serif";
+      octx.textAlign = "center";
+      octx.textBaseline = "middle";
+      octx.fillStyle = "#fff";
+      octx.fillText(TEXT, TW / 2, TH / 2 + fontSize * 0.04);
+
+      var data = octx.getImageData(0, 0, TW, TH).data;
+      // densidad adaptativa: más partículas en pantallas anchas, menos en mobile
+      var gap = Math.max(3, Math.round(TW / 230));
+      var targets = [];
+      for (var y = 0; y < TH; y += gap) {
+        for (var x = 0; x < TW; x += gap) {
+          if (data[(y * TW + x) * 4 + 3] > 128) {
+            targets.push({ x: x, y: y });
+          }
+        }
+      }
+      return targets;
+    }
+
+    function buildTitleParticles() {
+      var targets = sampleTextTargets();
+      titleCanvas.width = TW * tdpr;
+      titleCanvas.height = TH * tdpr;
+      tctx.setTransform(tdpr, 0, 0, tdpr, 0, 0);
+      tCenterX = TW / 2;
+      tCenterY = TH / 2;
+
+      var old = tParticles;
+      tParticles = targets.map(function (t, i) {
+        var prev = old[i];
+        return {
+          tx: t.x,
+          ty: t.y,
+          x: prev ? prev.x : Math.random() * TW,
+          y: prev ? prev.y : Math.random() * TH,
+          vx: 0,
+          vy: 0,
+          a: prev ? prev.a : 0,
+          size: Math.random() < 0.82 ? 1.7 : 2.8,
+          color: T_PALETTE[(Math.random() * T_PALETTE.length) | 0],
+          seed: Math.random() * Math.PI * 2
+        };
+      });
+    }
+
+    function titleFrame(now) {
+      if (!tPhaseStart) tPhaseStart = now;
+      var t = now - tPhaseStart;
+      tctx.clearRect(0, 0, TW, TH);
+
+      var i, p;
+
+      if (tPhase === "form") {
+        // las partículas vuelan hacia su lugar en las letras
+        for (i = 0; i < tParticles.length; i++) {
+          p = tParticles[i];
+          p.x += (p.tx - p.x) * 0.085;
+          p.y += (p.ty - p.y) * 0.085;
+          p.a = Math.min(1, p.a + 0.035);
+        }
+        if (t > T_DUR.form) { tPhase = "hold"; tPhaseStart = now; }
+
+      } else if (tPhase === "hold") {
+        // respiración sutil: cada partícula orbita apenas su posición
+        for (i = 0; i < tParticles.length; i++) {
+          p = tParticles[i];
+          p.x = p.tx + Math.sin(now * 0.0019 + p.seed) * 0.9;
+          p.y = p.ty + Math.cos(now * 0.0023 + p.seed) * 0.9;
+          p.a = 1;
+        }
+        if (t > T_DUR.hold) { tPhase = "compress"; tPhaseStart = now; }
+
+      } else if (tPhase === "compress") {
+        // todo colapsa hacia el centro, acelerando
+        var progress = Math.min(1, t / T_DUR.compress);
+        var S = 1 - 0.97 * easeInCubic(progress); // escala 1 -> 0.03
+        for (i = 0; i < tParticles.length; i++) {
+          p = tParticles[i];
+          var gx = tCenterX + (p.tx - tCenterX) * S;
+          var gy = tCenterY + (p.ty - tCenterY) * S;
+          p.x += (gx - p.x) * 0.32;
+          p.y += (gy - p.y) * 0.32;
+        }
+        // brillo creciente en el núcleo mientras colapsa
+        var coreGlow = tctx.createRadialGradient(tCenterX, tCenterY, 0, tCenterX, tCenterY, 30 + 60 * progress);
+        coreGlow.addColorStop(0, "rgba(242,201,74," + (0.25 * progress) + ")");
+        coreGlow.addColorStop(1, "rgba(242,201,74,0)");
+        tctx.fillStyle = coreGlow;
+        tctx.fillRect(0, 0, TW, TH);
+
+        if (progress >= 1) {
+          tPhase = "explode";
+          tPhaseStart = now;
+          // asignar velocidades radiales de estallido
+          for (i = 0; i < tParticles.length; i++) {
+            p = tParticles[i];
+            var dx = p.tx - tCenterX;
+            var dy = p.ty - tCenterY;
+            var d = Math.sqrt(dx * dx + dy * dy) || 1;
+            var speed = 2.5 + Math.random() * 8;
+            p.vx = (dx / d) * speed + (Math.random() - 0.5) * 2.5;
+            p.vy = (dy / d) * speed + (Math.random() - 0.5) * 2.5;
+          }
+        }
+
+      } else if (tPhase === "explode") {
+        var eProgress = Math.min(1, t / T_DUR.explode);
+        for (i = 0; i < tParticles.length; i++) {
+          p = tParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= 0.985;
+          p.vy *= 0.985;
+          p.a = 1 - eProgress;
+        }
+        // onda expansiva: anillo dorado que crece y se desvanece
+        if (eProgress < 0.6) {
+          var ringR = eProgress * TW * 0.55;
+          tctx.strokeStyle = "rgba(242,201,74," + (0.5 * (1 - eProgress / 0.6)) + ")";
+          tctx.lineWidth = 2;
+          tctx.beginPath();
+          tctx.arc(tCenterX, tCenterY, ringR, 0, Math.PI * 2);
+          tctx.stroke();
+        }
+        if (eProgress >= 1) { tPhase = "form"; tPhaseStart = now; }
+      }
+
+      // dibujar todas las partículas (cuadraditos, estética futurista)
+      for (i = 0; i < tParticles.length; i++) {
+        p = tParticles[i];
+        if (p.a <= 0) continue;
+        tctx.globalAlpha = p.a;
+        tctx.fillStyle = p.color;
+        tctx.fillRect(p.x, p.y, p.size, p.size);
+      }
+      tctx.globalAlpha = 1;
+
+      requestAnimationFrame(titleFrame);
+    }
+
+    function startTitle() {
+      buildTitleParticles();
+      requestAnimationFrame(titleFrame);
+    }
+
+    // reconstruir al cambiar el tamaño de la ventana (con debounce)
+    var titleResizeTimer;
+    window.addEventListener("resize", function () {
+      clearTimeout(titleResizeTimer);
+      titleResizeTimer = setTimeout(buildTitleParticles, 200);
+    }, { passive: true });
+
+    // esperar a que la fuente Unbounded esté cargada antes de muestrear el texto
+    if (document.fonts && document.fonts.load) {
+      document.fonts.load("900 100px Unbounded").then(startTitle).catch(startTitle);
+    } else {
+      setTimeout(startTitle, 600);
+    }
+  }
+
 })();
