@@ -885,3 +885,19 @@ ul { list-style: none; margin: 0; padding: 0; }
 @media (min-width: 700px) {
   .footer__inner { flex-direction: row; justify-content: space-between; align-items: center; }
 }
+
+/* Logo en imagen */
+.nav__logo-img {
+  height: 26px;        /* tamaño en mobile */
+  width: auto;
+  display: block;
+}
+@media (min-width: 900px) {
+  .nav__logo-img { height: 32px; }   /* un poco más grande en desktop */
+}
+
+.footer__logo-img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
