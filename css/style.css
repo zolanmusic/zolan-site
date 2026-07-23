@@ -24,8 +24,8 @@
   --grad-heat:   linear-gradient(135deg, var(--sage) 0%, var(--amber) 100%);
 
   /* --- Tipografía --- */
-  --font-display: "Unbounded", system-ui, sans-serif;
-  --font-body:    "Manrope", system-ui, sans-serif;
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-body:    "Syne", system-ui, sans-serif;
   --font-mono:    "Space Mono", ui-monospace, monospace;
 
   /* --- Escala / espaciado (mobile) --- */
@@ -416,7 +416,7 @@ ul { list-style: none; margin: 0; padding: 0; }
     clip: auto;
     display: block;
     font-size: clamp(56px, 20vw, 170px);
-    font-weight: 200;
+    font-weight: 400;
     line-height: 0.9;
     text-transform: uppercase;
     letter-spacing: -0.01em;
@@ -515,15 +515,26 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .next-release__cover-img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
   background-size: cover;
   background-position: center;
   background-color: var(--surface-2);
+  filter: blur(22px) saturate(1.2) brightness(0.8);
+  transform: scale(1.1);
 }
 .next-release__cover-lock {
-  display: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(246,240,228,0.85);
+  text-shadow: 0 0 30px rgba(0,0,0,0.6);
 }
 
 .next-release__title {
@@ -885,6 +896,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 @media (min-width: 700px) {
   .footer__inner { flex-direction: row; justify-content: space-between; align-items: center; }
 }
+
 
 /* Logo en imagen */
 .nav__logo-img {

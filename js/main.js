@@ -256,7 +256,7 @@
       // calcular tamaño de fuente que ocupe ~96% del ancho
       var off = document.createElement("canvas");
       var octx = off.getContext("2d");
-      octx.font = "200 100px Unbounded, sans-serif";
+      octx.font = "400 100px Syne, sans-serif";
       var measured = octx.measureText(TEXT).width || 350;
       var fontSize = Math.floor(100 * (TW * 0.96) / measured);
       TH = Math.ceil(fontSize * 1.22);
@@ -264,7 +264,7 @@
       off.width = TW;
       off.height = TH;
       octx = off.getContext("2d");
-      octx.font = "200 " + fontSize + "px Unbounded, sans-serif";
+      octx.font = "400 " + fontSize + "px Syne, sans-serif";
       octx.textAlign = "center";
       octx.textBaseline = "middle";
       octx.fillStyle = "#fff";
@@ -417,9 +417,9 @@
       titleResizeTimer = setTimeout(buildTitleParticles, 200);
     }, { passive: true });
 
-    // esperar a que la fuente Unbounded esté cargada antes de muestrear el texto
+    // esperar a que la fuente Syne esté cargada antes de muestrear el texto
     if (document.fonts && document.fonts.load) {
-      document.fonts.load("200 100px Unbounded").then(startTitle).catch(startTitle);
+      document.fonts.load("400 100px Syne").then(startTitle).catch(startTitle);
     } else {
       setTimeout(startTitle, 600);
     }
