@@ -259,7 +259,7 @@
       octx.font = "400 100px Syne, sans-serif";
       var measured = octx.measureText(TEXT).width || 350;
       var fontSize = Math.floor(100 * (TW * 0.96) / measured);
-      TH = Math.ceil(fontSize * 1.22);
+      TH = Math.ceil(fontSize * 1.9);
 
       off.width = TW;
       off.height = TH;
@@ -349,8 +349,8 @@
           p.y += (gy - p.y) * 0.32;
         }
         // brillo creciente en el núcleo mientras colapsa
-        var coreGlow = tctx.createRadialGradient(tCenterX, tCenterY, 0, tCenterX, tCenterY, 30 + 60 * progress);
-        coreGlow.addColorStop(0, "rgba(242,201,74," + (0.25 * progress) + ")");
+        var coreGlow = tctx.createRadialGradient(tCenterX, tCenterY, 0, tCenterX, tCenterY, 24 + 90 * progress);
+        coreGlow.addColorStop(0, "rgba(242,201,74," + (0.16 * progress) + ")");
         coreGlow.addColorStop(1, "rgba(242,201,74,0)");
         tctx.fillStyle = coreGlow;
         tctx.fillRect(0, 0, TW, TH);
@@ -364,9 +364,9 @@
             var dx = p.tx - tCenterX;
             var dy = p.ty - tCenterY;
             var d = Math.sqrt(dx * dx + dy * dy) || 1;
-            var speed = 2.5 + Math.random() * 8;
-            p.vx = (dx / d) * speed + (Math.random() - 0.5) * 2.5;
-            p.vy = (dy / d) * speed + (Math.random() - 0.5) * 2.5;
+            var speed = 1.6 + Math.random() * 4.2;
+            p.vx = (dx / d) * speed + (Math.random() - 0.5) * 1.6;
+            p.vy = (dy / d) * speed * 0.72 + (Math.random() - 0.5) * 1.6;
           }
         }
 
@@ -376,27 +376,28 @@
           p = tParticles[i];
           p.x += p.vx;
           p.y += p.vy;
-          p.vx *= 0.985;
-          p.vy *= 0.985;
-          p.a = 1 - eProgress;
-        }
-        // onda expansiva: anillo dorado que crece y se desvanece
-        if (eProgress < 0.6) {
-          var ringR = eProgress * TW * 0.55;
-          tctx.strokeStyle = "rgba(242,201,74," + (0.5 * (1 - eProgress / 0.6)) + ")";
-          tctx.lineWidth = 2;
-          tctx.beginPath();
-          tctx.arc(tCenterX, tCenterY, ringR, 0, Math.PI * 2);
-          tctx.stroke();
+          p.vx *= 0.972;
+          p.vy *= 0.972;
+          p.a = Math.pow(1 - eProgress, 1.7);
         }
         if (eProgress >= 1) { tPhase = "form"; tPhaseStart = now; }
       }
 
       // dibujar todas las partículas (cuadraditos, estética futurista)
+      // edgeFade: las partículas se apagan progresivamente al acercarse al borde
+      // del canvas, para que nunca se vea el recorte rectangular.
+      var fadeX = TW * 0.16;
+      var fadeY = TH * 0.16;
       for (i = 0; i < tParticles.length; i++) {
         p = tParticles[i];
         if (p.a <= 0) continue;
-        tctx.globalAlpha = p.a;
+        var edgeFade = Math.min(
+          1,
+          Math.max(0, Math.min(p.x, TW - p.x)) / fadeX,
+          Math.max(0, Math.min(p.y, TH - p.y)) / fadeY
+        );
+        if (edgeFade <= 0) continue;
+        tctx.globalAlpha = p.a * edgeFade;
         tctx.fillStyle = p.color;
         tctx.fillRect(p.x, p.y, p.size, p.size);
       }

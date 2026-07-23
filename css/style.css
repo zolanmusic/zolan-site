@@ -392,7 +392,9 @@ ul { list-style: none; margin: 0; padding: 0; }
   display: block;
   width: 100%;
   height: auto;
-  margin: 0 auto;
+  /* el canvas lleva aire extra arriba y abajo para que las partículas
+     se diluyan sin tocar el borde; lo compensamos visualmente aquí */
+  margin: -5vw auto;
 }
 
 /* texto real oculto visualmente (accesibilidad + SEO) */
