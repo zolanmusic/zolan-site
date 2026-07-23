@@ -176,4 +176,48 @@
     requestAnimationFrame(draw);
   }
 
+  /* ------------------------------------------------------------------ */
+  /* 6. Countdown de próximo lanzamiento                                  */
+  /*    Lee la fecha objetivo desde data-target en el HTML.              */
+  /*    Para cambiar la fecha: edita el atributo data-target del div      */
+  /*    #countdown en index.html (formato: AAAA-MM-DDTHH:MM:SS-04:00,     */
+  /*    donde -04:00 es el huso horario de Chile en horario de invierno   */
+  /*    y -03:00 en horario de verano).                                   */
+  /* ------------------------------------------------------------------ */
+  var countdownEl = document.getElementById("countdown");
+
+  if (countdownEl) {
+    var targetDate = new Date(countdownEl.getAttribute("data-target"));
+    var daysEl = document.getElementById("cd-days");
+    var hoursEl = document.getElementById("cd-hours");
+    var minsEl = document.getElementById("cd-mins");
+    var secsEl = document.getElementById("cd-secs");
+
+    function pad(n) { return String(n).padStart(2, "0"); }
+
+    function updateCountdown() {
+      var diff = targetDate.getTime() - Date.now();
+      if (isNaN(diff) || diff <= 0) {
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minsEl.textContent = "00";
+        secsEl.textContent = "00";
+        return;
+      }
+      var totalSeconds = Math.floor(diff / 1000);
+      var days = Math.floor(totalSeconds / 86400);
+      var hours = Math.floor((totalSeconds % 86400) / 3600);
+      var mins = Math.floor((totalSeconds % 3600) / 60);
+      var secs = totalSeconds % 60;
+
+      daysEl.textContent = pad(days);
+      hoursEl.textContent = pad(hours);
+      minsEl.textContent = pad(mins);
+      secsEl.textContent = pad(secs);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
 })();

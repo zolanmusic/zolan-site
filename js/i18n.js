@@ -48,6 +48,10 @@
       "conecta.contact": "Prensa / Contacto",
       "next.eyebrow": "Próximo lanzamiento",
       "next.cta": "Pre-guardar ahora",
+      "next.days": "días",
+      "next.hours": "horas",
+      "next.mins": "min",
+      "next.secs": "seg",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. Todos los derechos reservados."
     },
 
@@ -81,6 +85,10 @@
       "conecta.contact": "Press / Contact",
       "next.eyebrow": "Next release",
       "next.cta": "Pre-save now",
+      "next.days": "days",
+      "next.hours": "hours",
+      "next.mins": "min",
+      "next.secs": "sec",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. All rights reserved."
     },
 
@@ -114,6 +122,10 @@
       "conecta.contact": "Преса / Контакт",
       "next.eyebrow": "Наступний реліз",
       "next.cta": "Попередньо зберегти",
+      "next.days": "днів",
+      "next.hours": "год",
+      "next.mins": "хв",
+      "next.secs": "сек",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. Усі права захищені."
     },
 
@@ -147,6 +159,10 @@
       "conecta.contact": "Пресса / Контакт",
       "next.eyebrow": "Следующий релиз",
       "next.cta": "Предзаказать сейчас",
+      "next.days": "дней",
+      "next.hours": "час",
+      "next.mins": "мин",
+      "next.secs": "сек",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. Все права защищены."
     },
 
@@ -180,6 +196,10 @@
       "conecta.contact": "Prasa / Kontakt",
       "next.eyebrow": "Nadchodzące wydanie",
       "next.cta": "Zapisz zawczasu",
+      "next.days": "dni",
+      "next.hours": "godz",
+      "next.mins": "min",
+      "next.secs": "sek",
       "footer.text": "Progressive · Melodic · Deep House — © <span id=\"year\"></span> ZØLAN. Wszelkie prawa zastrzeżone."
     }
   };
