@@ -416,6 +416,7 @@ ul { list-style: none; margin: 0; padding: 0; }
     clip: auto;
     display: block;
     font-size: clamp(56px, 20vw, 170px);
+    font-weight: 200;
     line-height: 0.9;
     text-transform: uppercase;
     letter-spacing: -0.01em;

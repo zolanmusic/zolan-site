@@ -256,7 +256,7 @@
       // calcular tamaño de fuente que ocupe ~96% del ancho
       var off = document.createElement("canvas");
       var octx = off.getContext("2d");
-      octx.font = "900 100px Unbounded, sans-serif";
+      octx.font = "200 100px Unbounded, sans-serif";
       var measured = octx.measureText(TEXT).width || 350;
       var fontSize = Math.floor(100 * (TW * 0.96) / measured);
       TH = Math.ceil(fontSize * 1.22);
@@ -264,7 +264,7 @@
       off.width = TW;
       off.height = TH;
       octx = off.getContext("2d");
-      octx.font = "900 " + fontSize + "px Unbounded, sans-serif";
+      octx.font = "200 " + fontSize + "px Unbounded, sans-serif";
       octx.textAlign = "center";
       octx.textBaseline = "middle";
       octx.fillStyle = "#fff";
@@ -272,7 +272,7 @@
 
       var data = octx.getImageData(0, 0, TW, TH).data;
       // densidad adaptativa: más partículas en pantallas anchas, menos en mobile
-      var gap = Math.max(3, Math.round(TW / 230));
+      var gap = Math.max(2, Math.round(TW / 420));
       var targets = [];
       for (var y = 0; y < TH; y += gap) {
         for (var x = 0; x < TW; x += gap) {
@@ -303,7 +303,7 @@
           vx: 0,
           vy: 0,
           a: prev ? prev.a : 0,
-          size: Math.random() < 0.82 ? 1.7 : 2.8,
+          size: Math.random() < 0.85 ? 0.6 : 1.1,
           color: T_PALETTE[(Math.random() * T_PALETTE.length) | 0],
           seed: Math.random() * Math.PI * 2
         };
@@ -419,7 +419,7 @@
 
     // esperar a que la fuente Unbounded esté cargada antes de muestrear el texto
     if (document.fonts && document.fonts.load) {
-      document.fonts.load("900 100px Unbounded").then(startTitle).catch(startTitle);
+      document.fonts.load("200 100px Unbounded").then(startTitle).catch(startTitle);
     } else {
       setTimeout(startTitle, 600);
     }
