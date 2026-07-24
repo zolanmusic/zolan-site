@@ -50,6 +50,12 @@
 
       <a class="nav__cta" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener" data-i18n="nav.cta">Escuchar</a>
 
+      <button class="sound-toggle" id="soundToggle" aria-label="Activar sonido" aria-pressed="false">
+        <span class="sound-toggle__bars" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+      </button>
+
       <button class="nav__burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
@@ -305,7 +311,6 @@
       <div class="section-head reveal">
         <p class="eyebrow" data-i18n="visual.eyebrow">Identidad</p>
         <h2 data-i18n="visual.heading">Visual.</h2>
-        <p class="section-head__note" data-i18n="visual.note">Espacio reservado para fotografía de estudio y artwork. Reemplaza estos bloques por tus propias imágenes.</p>
       </div>
 
       <div class="gallery reveal">
@@ -354,6 +359,10 @@
       <p><span data-i18n-html="footer.text">Progressive · Melodic · Deep House — © <span id="year"></span> ZØLAN. Todos los derechos reservados.</span></p>
     </div>
   </footer>
+
+  <audio id="ambientAudio" loop preload="none">
+    <source src="assets/audio/nebula-loop.mp3" type="audio/mpeg" />
+  </audio>
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>

@@ -426,4 +426,68 @@
     }
   }
 
+  /* ------------------------------------------------------------------ */
+  /* 8. Loop de sonido ambiental                                          */
+  /*    Los navegadores bloquean el audio automático, así que arranca     */
+  /*    solo cuando la persona toca el botón. Fade in/out suave.          */
+  /*    El archivo va en: assets/audio/loop.mp3                           */
+  /* ------------------------------------------------------------------ */
+  var soundBtn = document.getElementById("soundToggle");
+  var audioEl = document.getElementById("ambientAudio");
+
+  if (soundBtn && audioEl) {
+    var TARGET_VOLUME = 0.35;   // volumen máximo (0 a 1) — súbelo/bájalo a gusto
+    var FADE_MS = 900;          // duración del fundido
+    var fadeTimer = null;
+    var isOn = false;
+
+    audioEl.volume = 0;
+
+    function fadeTo(target, onDone) {
+      clearInterval(fadeTimer);
+      var start = audioEl.volume;
+      var startTime = Date.now();
+      fadeTimer = setInterval(function () {
+        var k = Math.min(1, (Date.now() - startTime) / FADE_MS);
+        audioEl.volume = start + (target - start) * k;
+        if (k >= 1) {
+          clearInterval(fadeTimer);
+          if (onDone) onDone();
+        }
+      }, 40);
+    }
+
+    function setSound(on) {
+      isOn = on;
+      soundBtn.setAttribute("aria-pressed", String(on));
+      soundBtn.setAttribute("aria-label", on ? "Silenciar" : "Activar sonido");
+
+      if (on) {
+        var playPromise = audioEl.play();
+        if (playPromise && playPromise.catch) {
+          playPromise.catch(function () {
+            // el navegador bloqueó la reproducción: revertimos el estado visual
+            isOn = false;
+            soundBtn.setAttribute("aria-pressed", "false");
+          });
+        }
+        fadeTo(TARGET_VOLUME);
+      } else {
+        fadeTo(0, function () { audioEl.pause(); });
+      }
+    }
+
+    soundBtn.addEventListener("click", function () { setSound(!isOn); });
+
+    // pausar si la persona cambia de pestaña, reanudar al volver
+    document.addEventListener("visibilitychange", function () {
+      if (!isOn) return;
+      if (document.hidden) {
+        audioEl.pause();
+      } else {
+        audioEl.play().catch(function () {});
+      }
+    });
+  }
+
 })();
