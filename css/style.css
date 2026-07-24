@@ -920,16 +920,16 @@ ul { list-style: none; margin: 0; padding: 0; }
   transform: translateX(-50%) translateY(-2px);
 }
 
-.sound-fab__label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--mist);
-  transition: color 0.35s var(--ease);
+.sound-fab__wave {
+  width: 36px;
+  height: 14px;
+  background-color: var(--mist);
+  -webkit-mask: url('../assets/images/wave-zolan.svg') center / contain no-repeat;
+  mask: url('../assets/images/wave-zolan.svg') center / contain no-repeat;
+  transition: background-color 0.35s var(--ease);
 }
 .sound-fab[aria-pressed="true"] { border-color: var(--gold); }
-.sound-fab[aria-pressed="true"] .sound-fab__label { color: var(--gold); }
+.sound-fab[aria-pressed="true"] .sound-fab__wave { background-color: var(--gold); }
 
 /* --- icono: triángulo de play (apagado) / barras vibrando (sonando) --- */
 .sound-fab__icon {
