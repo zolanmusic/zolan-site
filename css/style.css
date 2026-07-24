@@ -523,9 +523,20 @@ ul { list-style: none; margin: 0; padding: 0; }
   background-size: cover;
   background-position: center;
   background-color: var(--surface-2);
+  filter: blur(22px) saturate(1.2) brightness(0.8);
+  transform: scale(1.1);
 }
 .next-release__cover-lock {
-  display: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(246,240,228,0.85);
+  text-shadow: 0 0 30px rgba(0,0,0,0.6);
 }
 
 .next-release__title {
@@ -890,59 +901,122 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 
 /* ==========================================================================
-   BOTÓN DE SONIDO (loop ambiental)
+   BOTÓN FLOTANTE DE SONIDO (loop ambiental)
    ========================================================================== */
 
-.sound-toggle {
-  width: 40px;
-  height: 40px;
+.sound-fab {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 300;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px 11px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  background: rgba(10, 8, 5, 0.78);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 34px -12px rgba(0, 0, 0, 0.85);
+  transition: border-color 0.35s var(--ease), background 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.sound-fab:hover {
+  border-color: var(--gold);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.sound-fab__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+  transition: color 0.35s var(--ease);
+}
+.sound-fab[aria-pressed="true"] { border-color: var(--gold); }
+.sound-fab[aria-pressed="true"] .sound-fab__label { color: var(--gold); }
+
+/* --- icono: triángulo de play (apagado) / barras vibrando (sonando) --- */
+.sound-fab__icon {
+  position: relative;
+  width: 16px;
+  height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  margin-left: auto;
-  margin-right: 10px;
-  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
-.sound-toggle:hover { border-color: var(--gold); }
 
-.sound-toggle__bars {
+.sound-fab__play {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid var(--mist);
+  margin-left: 2px;
+  transition: opacity 0.3s var(--ease);
+}
+
+.sound-fab__bars {
+  position: absolute;
   display: flex;
   align-items: flex-end;
   gap: 2.5px;
   height: 14px;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
 }
-.sound-toggle__bars span {
+.sound-fab__bars span {
   width: 2px;
-  background: var(--mist);
-  border-radius: 1px;
   height: 4px;
-  transition: background 0.3s var(--ease);
+  border-radius: 1px;
+  background: var(--gold);
 }
 
-/* estado activo: barras animadas como ecualizador */
-.sound-toggle[aria-pressed="true"] { border-color: var(--gold); }
-.sound-toggle[aria-pressed="true"] .sound-toggle__bars span {
-  background: var(--gold);
+/* estado sonando: se esconde el play, aparecen las barras vibrando */
+.sound-fab[aria-pressed="true"] .sound-fab__play { opacity: 0; }
+.sound-fab[aria-pressed="true"] .sound-fab__bars { opacity: 1; }
+.sound-fab[aria-pressed="true"] .sound-fab__bars span {
   animation: eqBar 0.9s ease-in-out infinite;
 }
-.sound-toggle[aria-pressed="true"] .sound-toggle__bars span:nth-child(1) { animation-delay: 0s; }
-.sound-toggle[aria-pressed="true"] .sound-toggle__bars span:nth-child(2) { animation-delay: 0.18s; }
-.sound-toggle[aria-pressed="true"] .sound-toggle__bars span:nth-child(3) { animation-delay: 0.36s; }
-.sound-toggle[aria-pressed="true"] .sound-toggle__bars span:nth-child(4) { animation-delay: 0.12s; }
+.sound-fab[aria-pressed="true"] .sound-fab__bars span:nth-child(1) { animation-delay: 0s; }
+.sound-fab[aria-pressed="true"] .sound-fab__bars span:nth-child(2) { animation-delay: 0.18s; }
+.sound-fab[aria-pressed="true"] .sound-fab__bars span:nth-child(3) { animation-delay: 0.36s; }
+.sound-fab[aria-pressed="true"] .sound-fab__bars span:nth-child(4) { animation-delay: 0.12s; }
 
 @keyframes eqBar {
   0%, 100% { height: 4px; }
   50%      { height: 14px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .sound-toggle[aria-pressed="true"] .sound-toggle__bars span { animation: none; height: 9px; }
+/* halo sutil que llama la atención mientras nadie lo ha tocado */
+.sound-fab::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 100px;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  pointer-events: none;
+  animation: fabHalo 3.4s ease-out infinite;
+}
+.sound-fab.is-touched::after,
+.sound-fab[aria-pressed="true"]::after { animation: none; opacity: 0; }
+
+@keyframes fabHalo {
+  0%   { opacity: 0.55; transform: scale(1); }
+  60%  { opacity: 0;    transform: scale(1.14); }
+  100% { opacity: 0;    transform: scale(1.14); }
 }
 
 @media (min-width: 900px) {
-  .sound-toggle { margin-left: 20px; margin-right: 0; }
+  .sound-fab { bottom: 26px; padding: 12px 22px 12px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-fab[aria-pressed="true"] .sound-fab__bars span { animation: none; height: 9px; }
+  .sound-fab::after { animation: none; opacity: 0; }
 }
 
 /* Logo en imagen */

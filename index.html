@@ -50,12 +50,6 @@
 
       <a class="nav__cta" href="https://open.spotify.com/artist/6SWFjMdQALeGT3l4CgtXuh" target="_blank" rel="noopener" data-i18n="nav.cta">Escuchar</a>
 
-      <button class="sound-toggle" id="soundToggle" aria-label="Activar sonido" aria-pressed="false">
-        <span class="sound-toggle__bars" aria-hidden="true">
-          <span></span><span></span><span></span><span></span>
-        </span>
-      </button>
-
       <button class="nav__burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
@@ -360,8 +354,19 @@
     </div>
   </footer>
 
+  <!-- ============ BOTÓN FLOTANTE DE SONIDO ============ -->
+  <button class="sound-fab" id="soundToggle" aria-label="Activar sonido" aria-pressed="false">
+    <span class="sound-fab__icon" aria-hidden="true">
+      <span class="sound-fab__play"></span>
+      <span class="sound-fab__bars">
+        <span></span><span></span><span></span><span></span>
+      </span>
+    </span>
+    <span class="sound-fab__label" data-i18n="sound.label">Sonido</span>
+  </button>
+
   <audio id="ambientAudio" loop preload="none">
-    <source src="assets/audio/nebula-loop.mp3" type="audio/mpeg" />
+    <source src="assets/audio/loop.mp3" type="audio/mpeg" />
   </audio>
 
   <script src="js/i18n.js"></script>

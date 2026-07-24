@@ -477,7 +477,10 @@
       }
     }
 
-    soundBtn.addEventListener("click", function () { setSound(!isOn); });
+    soundBtn.addEventListener("click", function () {
+      soundBtn.classList.add("is-touched");
+      setSound(!isOn);
+    });
 
     // pausar si la persona cambia de pestaña, reanudar al volver
     document.addEventListener("visibilitychange", function () {
