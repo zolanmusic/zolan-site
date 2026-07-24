@@ -357,14 +357,14 @@
 
   <!-- ============ BOTÓN FLOTANTE DE SONIDO ============ -->
   <button class="sound-fab" id="soundToggle" aria-label="Activar sonido" aria-pressed="false">
-    <span class="sound-fab__icon" aria-hidden="true">
-      <span class="sound-fab__play"></span>
-      <span class="sound-fab__bars">
-        <span></span><span></span><span></span><span></span>
-      </span>
+  <span class="sound-fab__icon" aria-hidden="true">
+    <span class="sound-fab__play"></span>
+    <span class="sound-fab__bars">
+      <span></span><span></span><span></span><span></span>
     </span>
-    <span class="sound-fab__label" data-i18n="sound.label">Sonido</span>
-  </button>
+  </span>
+  <span class="sound-fab__wave" aria-hidden="true"></span>
+</button>
 
   <audio id="ambientAudio" loop preload="none">
     <source src="assets/audio/nebula-loop.mp3" type="audio/mpeg" />
